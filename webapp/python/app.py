@@ -10,6 +10,7 @@ import string
 import tempfile
 import time
 from wsgi_lineprof.filters import FilenameFilter, TotalTimeSorter
+from wsgi_lineprof.middleware import LineProfilerMiddleware
 
 
 static_folder = pathlib.Path(__file__).resolve().parent.parent / 'public'
