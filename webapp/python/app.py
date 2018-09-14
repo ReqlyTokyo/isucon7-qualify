@@ -9,6 +9,7 @@ import random
 import string
 import tempfile
 import time
+from wsgi_lineprof.filters import FilenameFilter, TotalTimeSorter
 
 
 static_folder = pathlib.Path(__file__).resolve().parent.parent / 'public'
@@ -400,7 +401,6 @@ def get_icon(file_name):
 if __name__ == "__main__":
     app.run(port=8080, debug=True, threaded=True)
 
-from wsgi_lineprof.filters import FilenameFilter, TotalTimeSorter
 # withで書くべきですが… プロファイル結果の出力用ファイル
 f=open("profile.log", "a")
 filters = [
