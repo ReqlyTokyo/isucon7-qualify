@@ -399,3 +399,13 @@ def get_icon(file_name):
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True, threaded=True)
+
+from wsgi_lineprof.filters import FilenameFilter, TotalTimeSorter
+# withで書くべきですが… プロファイル結果の出力用ファイル
+f=open("profile.log", "a")
+filters = [
+    FilenameFilter("/home/isucon/isubata/webapp/python/app.py"),  # プロファイル対象のファイル名指定
+    lambda stats: filter(lambda stat: stat.total_time > 0.01, stats), # 0.01未満の結果を表示しない
+]
+# stremで出力ファイルを指定、filtersでフィルタを追加
+app = LineProfilerMiddleware(app, stream=f, filters=filters)
